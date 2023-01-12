@@ -379,6 +379,12 @@ private extension PanModalPresentationController {
         }
         panContainerView.frame.origin.x = frame.origin.x
         presentedViewController.view.frame = CGRect(origin: .zero, size: adjustedSize)
+
+        // intrinsic size 이슈 수정 https://github.com/rorybainfreetrade/PanModal/commit/6760679d8510fe7203e55284f8ab5ded2622babe
+
+        // Give the presentedViewController a chance to move its views above the safe area - if they are constrained to it
+        presentedViewController.view.setNeedsLayout()
+        presentedViewController.view.layoutIfNeeded()
     }
 
     /**
